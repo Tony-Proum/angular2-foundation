@@ -26,37 +26,21 @@ var paths = {
     './client/**/*.*',
     '!./client/assets/{scss,js,ts}/**/*.*'
   ],
-  angularJs: [
+  libs: [
+    './node_modules/core-js/client/shim.min.js',
+    './node_modules/systemjs/dist/system-polyfills.js',
     './node_modules/systemjs/dist/system.src.js',
     './node_modules/reflect-metadata/Reflect.js',
-    './node_modules/zone.js/dist/zone.js',
-    './node_modules/core-js/client/shim.min.js',
-    './node_modules/@angular/compiler/bundles/compiler.umd.js',
-    './node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
-    './node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-    './node_modules/@angular/core/bundles/core.umd.js'
-  ],
-  libs: [
-    './node_modules/rxjs/*',
-    './node_modules/angular2-in-memory-web-api/*'
+    './node_modules/rxjs/**/*.js',
+    './node_modules/zone.js/dist/**',
+    './node_modules/@angular/**/bundles/**',
+    './node_modules/angular2-in-memory-web-api/**/*.js',
+    './bower_components/foundation-sites/dist/**/*.js',
+    './bower_components/jquery/dist/jquery.js'
   ],
   // Sass will check these folders for files when you use @import.
   sass: [
-    'client/assets/scss',
-    'bower_components/foundation-apps/scss'
-  ],
-  // These files include Foundation for Apps and its dependencies
-  foundationJS: [
-    'bower_components/fastclick/lib/fastclick.js',
-    'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
-    'bower_components/tether/tether.js',
-    'bower_components/hammerjs/hammer.js',
-    'bower_components/angular/angular.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/foundation-apps/js/vendor/**/*.js',
-    'bower_components/foundation-apps/js/angular/**/*.js',
-    '!bower_components/foundation-apps/js/angular/app.js'
+    './client/assets/scss/**'
   ],
   // These files are for your app's JavaScript
   appJS: [
@@ -99,7 +83,7 @@ gulp.task("compile", ["tslint"], function () {
  * Copy all resources that are not TypeScript files into build directory.
  */
 gulp.task("resources", function () {
-  return gulp.src(["client/**/*", "!./**/*.ts","!./**/*.scss"])
+  return gulp.src(["client/**/*", "!./**/*.ts", "!./**/*.scss"])
     .pipe(gulp.dest("build"));
 });
 
@@ -107,42 +91,14 @@ gulp.task("resources", function () {
  * Copy all required libraries into build directory.
  */
 gulp.task("copy:libs", function () {
-  return gulp.src([
-      'core-js/client/shim.min.js',
-      'systemjs/dist/system-polyfills.js',
-      'systemjs/dist/system.src.js',
-      'reflect-metadata/Reflect.js',
-      'rxjs/**',
-      'zone.js/dist/**',
-      '@angular/**/bundles/*.js'
-    ], {cwd: "node_modules/**"}) /* Glob required here. */
+  return gulp.src(paths.libs)
     .pipe(gulp.dest("build/lib"));
-});
-
-
-// Compiles the Foundation for Apps directive partials into a single JavaScript file
-gulp.task('copy:foundation', function (cb) {
-  gulp.src('bower_components/foundation-apps/js/angular/components/**/*.html')
-    .pipe($.ngHtml2js({
-      prefix: 'components/',
-      moduleName: 'foundation',
-      declareModule: false
-    }))
-    .pipe($.uglify())
-    .pipe(gulp.dest('./build/assets/js'));
-
-  // Iconic SVG icons
-  gulp.src('./bower_components/foundation-apps/iconic/**/*')
-    .pipe(gulp.dest('./build/assets/img/iconic/'));
-
-  cb();
 });
 
 // Compiles Sass
 gulp.task('sass', function () {
   var minifyCss = $.if(isProduction, $.minifyCss());
-
-  return gulp.src('client/assets/scss/app.scss')
+  return gulp.src(paths.sass)
     .pipe($.sass({
       includePaths: paths.sass,
       outputStyle: (isProduction ? 'compressed' : 'nested'),
@@ -157,22 +113,7 @@ gulp.task('sass', function () {
 });
 
 // Compiles and copies the Foundation for Apps JavaScript, as well as your app's custom JS
-gulp.task('uglify', ['uglify:foundation', 'uglify:app'])
-
-gulp.task('uglify:foundation', function (cb) {
-  var uglify = $.if(isProduction, $.uglify()
-    .on('error', function (e) {
-      console.log(e);
-    }));
-
-  return gulp.src(paths.foundationJS)
-    .pipe(uglify)
-    .pipe($.concat('foundation.js'))
-    .pipe(gulp.dest('./build/assets/js/'))
-    ;
-});
-
-gulp.task('uglify:app', function () {
+gulp.task('uglify', function () {
   var uglify = $.if(isProduction, $.uglify()
     .on('error', function (e) {
       console.log(e);
@@ -207,7 +148,7 @@ gulp.task('server', ['build'], function () {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function (cb) {
-  sequence('clean', 'copy:libs', ['resources', 'compile', 'copy:foundation', 'sass', 'uglify'], cb);
+  sequence('clean', 'copy:libs', ['resources', 'compile', 'sass', 'uglify'], cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change

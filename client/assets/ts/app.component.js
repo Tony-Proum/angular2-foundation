@@ -15,7 +15,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<h1>Responsive Applica !!!</h1>'
+            template: '<h1>Angular2 with Foundation6</h1>'
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
