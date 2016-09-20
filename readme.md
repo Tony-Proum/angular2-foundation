@@ -1,10 +1,6 @@
-# Foundation for Apps Template
+# Foundation for Angular2 Applications
 
-[![devDependency Status](https://david-dm.org/zurb/foundation-apps-template/dev-status.svg)](https://david-dm.org/zurb/foundation-apps-template#info=devDependencies)
-
-This is the default template project for Foundation for Apps, powered by Gulp, Angular, and libsass. It provides you with a basic template to get started with Foundation for Apps and Angular.
-
-If you're already an Angular developer, you may instead want to install the components into your own stack using Bower: `bower install foundation-apps`
+This is a template project for Foundation for Angular2 Applications, powered by Gulp, and libsass.
 
 ## Requirements
 
@@ -21,7 +17,7 @@ You'll need the following software installed to get started.
 Clone this repository, where `app` is the name of your app.
 
 ```bash
-git clone https://github.com/zurb/foundation-apps-template.git app
+git clone https://github.com/Tony-Proum/angular2-foundation.git app
 ```
 
 Change into the directory.

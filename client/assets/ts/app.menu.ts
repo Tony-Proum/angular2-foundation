@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class Menu {
 
   items = [{
-    label : 'test',
+    label : 'Menu Item',
     href : 'menu'
   }];
 

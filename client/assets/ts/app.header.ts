@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 @Component({
   selector: 'app-header',
-  template: '<div class="title-bar dark">' +
+  template:
+  '<div class="title-bar">' +
   '<div class="title-bar-left">' +
   '<button class="menu-icon" type="button" data-open="offCanvasLeft"></button>' +
-  '<span class="title-bar-title">Responsive</span>' +
+  '<span class="title-bar-title">Foundation Template</span>' +
   '</div>' +
-  '</div>'+
-  '<app-menu class="top-bar dark"></app-menu>'
+  '</div>'
 })
 export class Header {}

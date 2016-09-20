@@ -49,20 +49,14 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
-body {
-  @include breakpoint(medium only) {
-    .top-bar {
-      display: none;
-    }
-
-    app-menu{
-      display: block;
-    }
+// Height and margin
+.title-bar-left{
+  padding : 1rem;
+  & span{
+    margin-left: 1rem;
   }
+}
 
-  @include breakpoint(large) {
-    .title-bar {
-      display: none;
-    }
-  }
+.menu{
+  padding: 1rem;
 }
