@@ -48,3 +48,21 @@
 
 @include motion-ui-transitions;
 @include motion-ui-animations;
+
+body {
+  @include breakpoint(medium only) {
+    .top-bar {
+      display: none;
+    }
+
+    app-menu{
+      display: block;
+    }
+  }
+
+  @include breakpoint(large) {
+    .title-bar {
+      display: none;
+    }
+  }
+}
