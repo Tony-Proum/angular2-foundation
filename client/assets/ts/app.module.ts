@@ -8,7 +8,7 @@ import {Header} from "./app.header";
 @NgModule({
   imports: [BrowserModule],
   declarations: [AppComponent, Menu, Header],
-  bootstrap: [AppComponent, Menu, Header]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

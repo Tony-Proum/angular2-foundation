@@ -14,8 +14,8 @@ var AppComponent = (function () {
     }
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'app-content',
-            template: ''
+            selector: 'app',
+            template: "\n<div class=\"off-canvas-wrapper\">\n  <div class=\"off-canvas-wrapper-inner\" data-off-canvas-wrapper>\n    <app-menu class=\"off-canvas position-left\" id=\"offCanvasLeft\" data-off-canvas></app-menu>\n    <div class=\"off-canvas-content\" data-off-canvas-content>\n      <app-header id=\"app-header\"></app-header>\n    </div>\n  </div>\n</div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
