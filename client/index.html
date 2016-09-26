@@ -21,12 +21,11 @@
 <!-- 2. Configure SystemJS -->
 <script src="systemjs.config.js"></script>
 <script>
-  System.import('app').catch(function (err) {
+  System.import('app').then(function(){
+    $(document).foundation();
+  }).catch(function (err) {
     console.error(err);
   });
-</script>
-<script>
-  $(document).foundation();
 </script>
 </body>
 </html>
